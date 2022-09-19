@@ -54,7 +54,16 @@ def limit(value, data=None):
     if data is None:
         data = das_data()
     value = int(value)
-    return data[:value]
+    counter = 0
+    result = []
+    while counter < value:
+        for i in data:
+            result.append(i)
+            counter += 1
+            if counter == value:
+                break
+
+    return result
 
 
 def das_data():

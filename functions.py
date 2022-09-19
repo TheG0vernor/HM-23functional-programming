@@ -1,5 +1,3 @@
-from timeit import timeit
-
 from constants import LOG_DIR
 
 
@@ -62,7 +60,7 @@ def limit(value, data=None):
 def das_data():
     """Формирует массив с данными"""
     with open(LOG_DIR) as f:
-        data = map(lambda v: v.strip(), f)  # используем итератор, чтобы не загружать в память весь массив с данными
+        data = map(lambda v: v.strip(), f)
         return list(data)
         # data = f.read()
         # data = data.strip()

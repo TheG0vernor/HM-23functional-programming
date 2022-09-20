@@ -1,6 +1,8 @@
+import os
+
 from flask import Flask, abort, request
 
-from constants import LOG_DIR
+from constants import DATA_DIR
 from services import limit_in_cmd1, sort_in_cmd1, map_in_cmd1, filter_in_cmd1
 
 app = Flask(__name__)
@@ -14,7 +16,8 @@ def perform_query():
         cmd2 = request.args.get('cmd2') or request.json.get('cmd2')
         value2 = request.args.get('value2') or request.json.get('value2')
         file_name = request.args.get('file_name') or request.json.get('file_name')
-        if file_name not in LOG_DIR:
+        log_file = os.path.join(DATA_DIR, file_name)
+        if not os.path.isfile(log_file):
             abort(400, 'несоответствие имени файла')
         elif cmd1 == 'filter':
             return filter_in_cmd1(cmd1, cmd2, value1, value2)
@@ -27,4 +30,4 @@ def perform_query():
         else:
             abort(400, 'введены недопустимые данные')
     except Exception as e:
-        abort(400, f'{e}')
+        abort(400, e)

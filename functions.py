@@ -10,27 +10,11 @@ def das_mapping(col, data=None):
     return list(result)
 
 
-def mapping_and_filter(col, str_):
-    """Принимает номер колонки и значение и возвращает колонку строк с этим значением"""
-    col = int(col)
-    result = das_mapping(col)
-    result = das_filter(str_, result)
-    return list(result)
-
-
 def das_filter(str_, data=None):
     """Принимает значение (может принять массив) и возвращает строки с этим значением"""
     if data is None:
         data = das_data()
     result = filter(lambda v: v if str_ in v else None, data)
-    return list(result)
-
-
-def filter_and_mapping(str_, col):
-    """Принимает номер колонки и значение и возвращает колонку строк с этим значением"""
-    col = int(col)
-    result = das_filter(str_)
-    result = das_mapping(col, result)
     return list(result)
 
 

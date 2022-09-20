@@ -15,7 +15,7 @@ def perform_query():
         value2 = request.args.get('value2')
         file_name = request.args.get('file_name')
         if file_name not in LOG_DIR:
-            abort(400)
+            abort(400, 'несоответствие имени файла')
         elif cmd1 == 'filter':
             return filter_in_cmd1(cmd1, cmd2, value1, value2)
         elif cmd1 == 'map':
@@ -25,6 +25,6 @@ def perform_query():
         elif cmd1 == 'limit':
             return limit_in_cmd1(cmd1, cmd2, value1, value2)
         else:
-            abort(400)
-    except:
-        abort(400)
+            abort(400, 'введены недопустимые данные')
+    except Exception as e:
+        abort(400, e)

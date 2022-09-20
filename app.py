@@ -9,11 +9,11 @@ app = Flask(__name__)
 @app.route("/perform_query/", methods=['POST'])
 def perform_query():
     try:
-        cmd1 = request.args.get('cmd1')
-        value1 = request.args.get('value1')
-        cmd2 = request.args.get('cmd2')
-        value2 = request.args.get('value2')
-        file_name = request.args.get('file_name')
+        cmd1 = request.args.get('cmd1') or request.json.get('cmd1')
+        value1 = request.args.get('value1') or request.json.get('value1')
+        cmd2 = request.args.get('cmd2') or request.json.get('cmd2')
+        value2 = request.args.get('value2') or request.json.get('value2')
+        file_name = request.args.get('file_name') or request.json.get('file_name')
         if file_name not in LOG_DIR:
             abort(400, 'несоответствие имени файла')
         elif cmd1 == 'filter':
@@ -27,4 +27,4 @@ def perform_query():
         else:
             abort(400, 'введены недопустимые данные')
     except Exception as e:
-        abort(400, e)
+        abort(400, f'{e}')
